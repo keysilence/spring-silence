@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop     http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+       default-autowire="byName">
+
+    <!-- 增加 service注入属性。-->
+    <context:property-placeholder file-encoding="UTF-8" location="WEB-INF/conf.properties"/>
+
+    <context:component-scan base-package="com.silence.velocity.web">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- template view -->
+    <bean id="velocityConfig"
+          class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+                <prop key="contentType">text/html;charset=UTF-8</prop>
+                <prop key="velocimacro.library">common/macro.html</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="velocityViewResolver"
+          class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+        <property name="layoutUrl" value="layout/default.html"/>
+        <property name="cache" value="false"/>
+        <property name="suffix" value=".html"/>
+        <!--解决filter attr变量传递到vm页面问题。  http://www.iteye.com/problems/24068 -->
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="requestContextAttribute" value="requestContext"/>
+        <property name="exposeRequestAttributes" value="true"/>
+        <property name="exposeSessionAttributes" value="true"/>
+        <!--<property name="allowSessionOverride" value="true"/>-->
+        <property name="dateToolAttribute" value="dateTool"/>
+        <property name="numberToolAttribute" value="numberTool"/>
+        <!-- Merge urlBuilderMap to view context for convenience. You can put your tools which must be thread safe. -->
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+        <!-- velocity toolbox -->
+        <property name="toolboxConfigLocation" value="/WEB-INF/vm/toolbox.xml"/>
+    </bean>
+
+</beans>
