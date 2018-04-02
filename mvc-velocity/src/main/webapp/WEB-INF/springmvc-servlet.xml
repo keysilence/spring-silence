@@ -15,9 +15,42 @@
     <!-- 增加 service注入属性。-->
     <context:property-placeholder file-encoding="UTF-8" location="WEB-INF/conf.properties"/>
 
+    <aop:aspectj-autoproxy proxy-target-class="true">
+        <aop:include name="timingAspect"/>
+    </aop:aspectj-autoproxy>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <task:annotation-driven/>
+
     <context:component-scan base-package="com.silence.velocity.web">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <mvc:default-servlet-handler/>
+
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/login"/>-->
+            <!--<mvc:exclude-mapping path="/css/**"/>-->
+            <!--<mvc:exclude-mapping path="/js/**"/>-->
+            <!--<mvc:exclude-mapping path="/upload/**"/>-->
+            <!--<mvc:exclude-mapping path="/font-awesome/**"/>-->
+            <!--<mvc:exclude-mapping path="/favicon.ico"/>-->
+            <!--<bean class="com.silence.velocity.interceptor.UserVerifyInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
+    <!-- JSR-303 support will be detected on classpath and enabled automatically -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg name="defaultCharset" value="UTF-8"/>
+                <property name="writeAcceptCharset" value="false"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- template view -->
     <bean id="velocityConfig"
