@@ -7,6 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>mvc-velocity</module>
+      <module>mvc</module>
   </modules>
   <packaging>pom</packaging>
 

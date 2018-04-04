@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toolbox>
+    <tool>
+        <key>stringUtils</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringUtils</class>
+    </tool>
+    <tool>
+        <key>stringEscapeUtils</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.StringEscapeUtils</class>
+    </tool>
+    <!-- 增加日期格式化 -->
+    <tool>
+        <key>dateFormatUtils</key>
+        <scope>application</scope>
+        <class>org.apache.commons.lang.time.DateFormatUtils</class>
+    </tool>
+</toolbox>

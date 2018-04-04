@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("common/meta.html")
+</head>
+<body class="no-skin">
+
+#parse("common/header.html")
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+    </script>
+
+    #parse("common/left_menu.html")
+
+    <div class="main-content">
+        <div class="main-content-inner">
+
+            <div class="page-content">
+                <div class="page-header">
+                    <h1>
+                        代码生成工具 v1.0.0
+                    </h1>
+                </div>
+                $!{test}
+            </div>
+
+        </div>
+    </div>
+
+    #parse("common/footer.html")
+
+    <script type="text/javascript">
+
+    </script>
+</div>
+
+</body>
+</html>
