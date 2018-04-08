@@ -9,6 +9,8 @@ cp mvc/target/mvc.war ./
 
 #base_url=10.19.248.200:30100
 #docker_url=${base_url}/g_laikang/laikang-app-admin:latest
+docker rmi -f mvc:latest
+
 tag_name=mvc:latest
 
 docker build -f ./Dockerfile -t ${tag_name} .
