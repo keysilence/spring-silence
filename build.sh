@@ -26,6 +26,6 @@ docker push hub.c.163.com/keysilence/store/docker/mvc:1.0.0
 #
 #docker push ${docker_url}
 
-git clean -df
+#git clean -df
 
 echo "############## end ##############"
