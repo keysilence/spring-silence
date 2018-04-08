@@ -18,6 +18,6 @@ docker build -f ./Dockerfile -t ${tag_name} .
 #
 #docker push ${docker_url}
 
-#git clean -df
+git clean -df
 
 echo "############## end ##############"
