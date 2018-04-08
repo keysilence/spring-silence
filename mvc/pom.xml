@@ -62,6 +62,11 @@
             <artifactId>commons-digester</artifactId>
             <version>1.8</version>
         </dependency>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>mvc</finalName>

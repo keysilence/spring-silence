@@ -3,8 +3,10 @@ package com.silence.mvc.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -32,13 +34,15 @@ public class HelloWorldController {
 
     }
 
+    //TODO 唯有JSP的没有成功，后面继续研究
     @RequestMapping("/helloWorldJsp")
 //    @ResponseBody
-    public String helloWorldJsp(Model model) {
+    public ModelAndView helloWorldJsp() {
 
-        model.addAttribute("msg", "Hello World!");
+        ModelAndView modelAndView = new ModelAndView("jsp");
+        modelAndView.addObject("jsp", "Hello World!");
 
-        return "helloWorld";
+        return modelAndView;
 
     }
 
@@ -48,7 +52,17 @@ public class HelloWorldController {
 
         model.addAttribute("test", "Hello World!");
 
-        return "test";
+        return "velocity";
+
+    }
+
+    @RequestMapping("/helloWorldFreemarker")
+//    @ResponseBody
+    public String helloWorldFreemarker(Model model) {
+
+        model.addAttribute("msg", "Hello World!");
+
+        return "freemarker";
 
     }
 

@@ -41,7 +41,7 @@
     <!-- 使用Velocity必须增加此配置 -->
     <bean id="velocityConfig"
           class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath" value="/WEB-INF/vm/"/>
+        <property name="resourceLoaderPath" value="/WEB-INF/velocity/"/>
         <property name="velocityProperties">
             <props>
                 <prop key="input.encoding">UTF-8</prop>
@@ -59,7 +59,7 @@
         <!-- 不设置contentType，浏览器页面会出现乱码 -->
         <property name="contentType" value="text/html;charset=UTF-8"/>
         <property name="cache" value="false"/>
-        <!--解决filter attr变量传递到vm页面问题。  http://www.iteye.com/problems/24068-->
+        <!--解决filter attr变量传递到velocity页面问题。  http://www.iteye.com/problems/24068-->
         <property name="exposeSpringMacroHelpers" value="true"/>
         <property name="requestContextAttribute" value="requestContext"/>
         <property name="exposeRequestAttributes" value="true"/>
@@ -68,16 +68,45 @@
         <property name="dateToolAttribute" value="dateTool"/>
         <property name="numberToolAttribute" value="numberTool"/>
         <!-- 如果使用toolbox，则需要引入commons-digester依赖 -->
-        <property name="toolboxConfigLocation" value="/WEB-INF/vm/toolbox.xml"/>
+        <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml"/>
+    </bean>
+
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">1</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="datetime_format">yyyy-MM-dd</prop><!-- 时间格式化 -->
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="number_format">#.##</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="cache" value="false"/>
+        <property name="prefix" value=""/>
+        <property name="suffix" value=".ftl"/>
+        <property name="order" value="1"/>
+        <property name="contentType" value="text/html;charset=UTF-8" />
+        <property name="allowSessionOverride" value="true" />
+        <property name="allowRequestOverride" value="true" />
+        <property name="exposeSpringMacroHelpers" value="true" />
+        <property name="exposeRequestAttributes" value="true" />
+        <property name="exposeSessionAttributes" value="true" />
+        <property name="requestContextAttribute" value="request" />
     </bean>
 
     <!-- 可以配置多视图解析器，并通过order顺序进行依次解析 -->
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
-        <property name="order" value="1"/>
+        <property name="order" value="2"/>
     </bean>
 
 </beans>
