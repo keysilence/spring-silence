@@ -106,8 +106,8 @@ public class HelloWorldController {
             ex.printStackTrace();
         }
 
-        return file.getOriginalFilename();
-//        return "上传成功！";
+//        return file.getOriginalFilename();
+        return "上传成功！";
 
     }
 

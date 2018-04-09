@@ -93,9 +93,11 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        alert(data);
+                        //alert(data);
+                        window.location.reload();
                     }
                 });
+
                 return true;
             }
         }).on('file.error.ace', function(event, info) {
