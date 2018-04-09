@@ -27,13 +27,45 @@
                         </div>
                         <!--<div class="col-sm-6">-->
                             <!--<a id="downLoadTemplateId" class="btn btn-info btn-minier btn-success" style="line-height: 23px" href="">-->
-                                <!--<i class="ace-icon fa fa-download"></i>模版下载-->
+                                <!--<i class="ace-icon fa fa-download"></i><a href="/first/download?">模版下载</a>-->
                             <!--</a>-->
                         <!--</div>-->
                     </div>
                 </form>
             </div>
 
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p class="row">&nbsp;</p>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="simple-table" class="table  table-bordered table-hover">
+                                    <tr>
+                                        <th>文件名</th>
+                                        <th>下载文件</th>
+                                    </tr>
+                                    #foreach(${item} in $!{files})
+                                    <tr>
+                                        <td>$!{item}</td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                <a class="btn btn-xs  btn-info" target="_blank"
+                                                   href='/first/download?fileName=$!{item}'>
+                                                    <i class="ace-icon fa fa-download bigger-120"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    #end
+                                </table>
+                            </div><!-- /.span -->
+                        </div><!-- /.row -->
+                        <!-- PAGE CONTENT BEGINS -->
+
+                    </div><!-- /.row -->
+                </div><!-- /.page-content -->
+            </div>
         </div>
     </div>
 

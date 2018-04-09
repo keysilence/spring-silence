@@ -12,9 +12,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.concurrent.Callable;
 
 /**
@@ -70,7 +69,13 @@ public class HelloWorldController {
 
     @RequestMapping("/uploadPage")
 //    @ResponseBody
-    public String uploadPage(Model model) {
+    public String uploadPage(Model view, HttpServletRequest request) {
+
+        String realPath = request.getRealPath("");
+        String uploadPath = realPath.concat(File.separator).concat("upload").concat(File.separator);
+        File directory = new File(uploadPath);
+        String[] fileArray = directory.list();
+        view.addAttribute("files", fileArray);
 
         return "upload";
 
@@ -101,7 +106,43 @@ public class HelloWorldController {
             ex.printStackTrace();
         }
 
-        return "上传成功！";
+        return file.getOriginalFilename();
+//        return "上传成功！";
+
+    }
+
+    @RequestMapping(value = "/download", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text;charset=utf-8")
+    @ResponseBody
+    public String download(@RequestParam(value = "fileName") String fileName,
+                           HttpServletRequest request,
+                           HttpServletResponse response) {
+
+        try {
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("multipart/form-data");
+            //将文件名编码转为ISO-8859-1，否则下载时中文文件名不显示
+            response.setHeader("Content-Disposition", "attachment;fileName=" + new String(fileName.getBytes(), "ISO-8859-1"));
+            String path = request.getRealPath("").concat(File.separator).concat("upload").concat(File.separator);
+            //打开本地文件流
+            InputStream inputStream = new FileInputStream(path.concat(fileName));
+            //激活下载操作
+            OutputStream os = response.getOutputStream();
+
+            //循环写入输出流
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+
+            // 这里主要关闭。
+            os.close();
+            inputStream.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return "下载成功！";
 
     }
 
@@ -179,18 +220,18 @@ public class HelloWorldController {
 
     }
 
-    @RequestMapping("/download")
-    public StreamingResponseBody download() {
-
-        return new StreamingResponseBody() {
-
-            @Override
-            public void writeTo(OutputStream outputStream) throws IOException {
-                String a = "hh";
-            }
-
-        };
-
-    }
+//    @RequestMapping("/download")
+//    public StreamingResponseBody download() {
+//
+//        return new StreamingResponseBody() {
+//
+//            @Override
+//            public void writeTo(OutputStream outputStream) throws IOException {
+//                String a = "hh";
+//            }
+//
+//        };
+//
+//    }
 
 }
