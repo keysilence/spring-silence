@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    #parse("common/meta.html")
+</head>
+<body class="no-skin">
+
+#parse("common/header.html")
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try{ace.settings.loadState('main-container')}catch(e){}
+    </script>
+
+    #parse("common/left_menu.html")
+
+    <div class="main-content">
+        <div class="main-content-inner">
+
+            <div class="form-group">
+                <form id="addForm" action="/first/upload" method="post" enctype="multipart/form-data">
+                    <label class="col-sm-2 control-label text-right"><b class="red">*</b>附件：</label>
+
+                    <div class="col-xs-10">
+                        <div class="col-sm-6">
+                            <input type="file" id="id-input-file" name="file"/>
+                        </div>
+                        <!--<div class="col-sm-6">-->
+                            <!--<a id="downLoadTemplateId" class="btn btn-info btn-minier btn-success" style="line-height: 23px" href="">-->
+                                <!--<i class="ace-icon fa fa-download"></i>模版下载-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    #parse("common/footer.html")
+
+    <script type="text/javascript">
+        $('#id-input-file').ace_file_input({
+            no_file:'没有选择文件',
+            btn_choose:'选择',
+            btn_change:'更改',
+            icon_remove:null,
+            droppable:false,
+            thumbnail:false,//| true | large
+//            whitelist:'gif|png|jpg|jpeg', //黑白名单并没有起作用
+            allowExt: ['xls','xlsx'],    //该属性只是对文件后缀的控制
+            before_change: function(files, dropped){
+                //选择文件 展示之前的事件
+                //return true 保留当前文件; return false 不保留文件；return -1 重置文件框
+                //需要同步等待返回结果
+                $.ajax({
+                    url: "/first/upload",
+                    type: 'POST',
+                    cache: false,
+                    data: new FormData($('#addForm')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
+                return true;
+            }
+        }).on('file.error.ace', function(event, info) {
+             alert("请上传excel格式文件","提示");
+        });
+    </script>
+</div>
+
+</body>
+</html>

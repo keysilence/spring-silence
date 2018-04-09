@@ -3,14 +3,16 @@ package com.silence.mvc.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.Callable;
@@ -63,6 +65,43 @@ public class HelloWorldController {
         model.addAttribute("msg", "Hello World!");
 
         return "freemarker";
+
+    }
+
+    @RequestMapping("/uploadPage")
+//    @ResponseBody
+    public String uploadPage(Model model) {
+
+        return "upload";
+
+    }
+
+    /**
+     * 1.如果不设置multipartResolver，此处将无法获得MultipartFile；
+     * 2.produces设置为charset=utf-8为了解决@ResponseBody返回中文乱码的问题；
+     * 3.produces如果设置为application/json，则页面端alert不生效；
+     * @param file
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/upload", method = {RequestMethod.POST}, produces = "application/text;charset=utf-8")
+    @ResponseBody
+    public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+
+        String realPath = request.getRealPath("");
+        String uploadPath = realPath.concat(File.separator).concat("upload").concat(File.separator);
+        File savePath = new File(uploadPath);
+        if (!savePath.exists()) {
+            savePath.mkdirs();
+        }
+        File saveFile = new File(uploadPath.concat(file.getOriginalFilename()));
+        try {
+            file.transferTo(saveFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return "上传成功！";
 
     }
 
