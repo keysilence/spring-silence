@@ -1,5 +1,7 @@
 package com.silence.mvc.web;
 
+import com.silence.mvc.filter.SilenceHiddenFileFilter;
+import org.apache.commons.io.filefilter.HiddenFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,7 +76,19 @@ public class HelloWorldController {
         String realPath = request.getRealPath("");
         String uploadPath = realPath.concat(File.separator).concat("upload").concat(File.separator);
         File directory = new File(uploadPath);
-        String[] fileArray = directory.list();
+//        String[] fileArray = directory.list(new FilenameFilter() {
+//            @Override
+//            public boolean accept(File dir, String name) {
+//                if (name.contains(".DS_Store")) {
+//                    return false;
+//                } else {
+//                    return true;
+//                }
+//            }
+//        });
+
+        String[] fileArray = directory.list(new SilenceHiddenFileFilter());
+
         view.addAttribute("files", fileArray);
 
         return "upload";
