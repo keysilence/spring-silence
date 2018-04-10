@@ -12,7 +12,11 @@
        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
        default-autowire="byName">
 
-    <context:component-scan base-package="com.silence.mvc.web" />
+    <import resource="classpath*:spring-config-*.xml"/>
+
+    <context:property-placeholder file-encoding="UTF-8" location="WEB-INF/conf.properties"/>
+
+    <context:component-scan base-package="com.silence" />
 
     <!--TODO 配置此拦截不管用，后边继续研究-->
     <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">

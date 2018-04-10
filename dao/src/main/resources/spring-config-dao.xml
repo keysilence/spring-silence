@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    		http://www.springframework.org/schema/beans/spring-beans.xsd
+    		http://www.springframework.org/schema/tx
+    		http://www.springframework.org/schema/tx/spring-tx.xsd"
+       default-autowire="byName">
+	
+	<!-- BoneCP configuration -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="user" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+        <property name="jdbcUrl" value="${spring.datasource.url}"/>
+        <property name="driverClass" value="${spring.datasource.driverClassName}"/>
+
+        <property name="acquireIncrement" value="${spring.datasource.c3p0.acquireIncrement}"/>
+        <property name="idleConnectionTestPeriod" value="${spring.datasource.c3p0.idleConnectionTestPeriod}"/>
+        <property name="initialPoolSize" value="${spring.datasource.c3p0.initialPoolSize}"/>
+        <property name="maxIdleTime" value="${spring.datasource.c3p0.maxIdleTime}"/>
+        <property name="maxPoolSize" value="${spring.datasource.c3p0.maxPoolSize}"/>
+        <property name="minPoolSize" value="${spring.datasource.c3p0.minPoolSize}"/>
+        <!--增加 数据库库测试连接-->
+        <!--<property name="automaticTestTable" value="c3p0_test"/>-->
+        <!--<property name="testConnectionOnCheckin" value="true"/>-->
+        <property name="preferredTestQuery" value=" select 1 "/>
+
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+        <!--使用数据库默认的隔离级别-->
+        <property name="isolationLevelName" value="ISOLATION_DEFAULT"/>
+        <!--如果没有事务则新建事务-->
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRES_NEW"/>
+    </bean>
+
+    <!-- 启用事务注解 -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--<property name="configLocation" value="classpath:mybatis-config.xml"/>-->
+    </bean>
+
+    <!--自动查找类路径下的映射器并将它们自动装配-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory" />
+        <property name="basePackage" value="com.silence.dao"/>
+    </bean>
+</beans>

@@ -1,7 +1,8 @@
 package com.silence.mvc.web;
 
+import com.silence.domain.Spring;
 import com.silence.mvc.filter.SilenceHiddenFileFilter;
-import org.apache.commons.io.filefilter.HiddenFileFilter;
+import com.silence.service.SpringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 /**
@@ -27,6 +28,9 @@ public class HelloWorldController {
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
+
+    @Autowired
+    private SpringService springService;
 
     @RequestMapping("/index.html")
     public String index(Model model) {
@@ -237,5 +241,14 @@ public class HelloWorldController {
 //        };
 //
 //    }
+
+    @RequestMapping("/findSprings")
+    @ResponseBody
+    public String findSprings() {
+
+        List<Spring> springs = springService.findSprings();
+        return "findSprings";
+
+    }
 
 }
