@@ -71,6 +71,7 @@
         <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml"/>
     </bean>
 
+    <!-- 使用Freemarker必须增加此配置 -->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/freemarker/"/>
         <property name="defaultEncoding" value="utf-8" />
