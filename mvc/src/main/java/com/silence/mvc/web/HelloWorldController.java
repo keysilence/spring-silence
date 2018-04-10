@@ -76,16 +76,6 @@ public class HelloWorldController {
         String realPath = request.getRealPath("");
         String uploadPath = realPath.concat(File.separator).concat("upload").concat(File.separator);
         File directory = new File(uploadPath);
-//        String[] fileArray = directory.list(new FilenameFilter() {
-//            @Override
-//            public boolean accept(File dir, String name) {
-//                if (name.contains(".DS_Store")) {
-//                    return false;
-//                } else {
-//                    return true;
-//                }
-//            }
-//        });
 
         String[] fileArray = directory.list(new SilenceHiddenFileFilter());
 
