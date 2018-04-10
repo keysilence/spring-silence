@@ -3,6 +3,8 @@ package com.silence.mvc.web;
 import com.silence.domain.Spring;
 import com.silence.mvc.filter.SilenceHiddenFileFilter;
 import com.silence.service.SpringService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -25,6 +28,8 @@ import java.util.concurrent.Callable;
 @Controller
 @RequestMapping("/first")
 public class HelloWorldController {
+
+    public static final Logger logger = LoggerFactory.getLogger(HelloWorldController.class);
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
@@ -244,10 +249,11 @@ public class HelloWorldController {
 
     @RequestMapping("/findSprings")
     @ResponseBody
-    public String findSprings() {
+    public Object findSprings() {
 
+        logger.info("=======>");
         List<Spring> springs = springService.findSprings();
-        return "findSprings";
+        return springs;
 
     }
 
