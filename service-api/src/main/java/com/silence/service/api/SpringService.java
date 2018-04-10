@@ -1,6 +1,7 @@
-package com.silence.service;
+package com.silence.service.api;
 
 import com.silence.domain.Spring;
+
 import java.util.List;
 
 /**
