@@ -12,6 +12,7 @@
     <module>service</module>
       <module>service-api</module>
       <module>redis</module>
+      <module>mongo</module>
   </modules>
   <packaging>pom</packaging>
 
