@@ -18,7 +18,6 @@
     <!-- 定义mongo对象，对应的是mongodb官方jar包中的Mongo -->
     <mongo:mongo id="mongo" host="${mongo.url}" port="${mongo.port}" />
 
-
     <mongo:db-factory id="mongoDbFactory" mongo-ref="mongo" dbname="${mongo.dbname}" />
 
     <!-- 自动扫描以下包的类 -->
