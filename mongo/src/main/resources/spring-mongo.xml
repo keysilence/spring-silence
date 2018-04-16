@@ -11,15 +11,15 @@
         http://www.springframework.org/schema/data/mongo
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-    <context:property-placeholder location="classpath*:mongo.properties" order="0" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath*:mongo.properties" order="0" ignore-unresolvable="true" />
 
-    <context:component-scan base-package="com.silence.mongo.dao"></context:component-scan>
+    <context:component-scan base-package="com.silence.mongo.dao" />
 
     <!-- 定义mongo对象，对应的是mongodb官方jar包中的Mongo -->
-    <mongo:mongo id="mongo" host="${mongo.url}" port="${mongo.port}"/>
+    <mongo:mongo id="mongo" host="${mongo.url}" port="${mongo.port}" />
 
 
-    <mongo:db-factory id="mongoDbFactory" mongo-ref="mongo"  dbname="${mongo.dbname}"   />
+    <mongo:db-factory id="mongoDbFactory" mongo-ref="mongo" dbname="${mongo.dbname}" />
 
     <!-- 自动扫描以下包的类 -->
     <mongo:mapping-converter base-package="com.silence.mongo.model" />
