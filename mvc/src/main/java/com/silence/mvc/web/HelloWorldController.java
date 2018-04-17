@@ -2,12 +2,15 @@ package com.silence.mvc.web;
 
 import com.silence.domain.Spring;
 import com.silence.mvc.filter.SilenceHiddenFileFilter;
+import com.silence.mvc.param.SpringParams;
 import com.silence.service.api.SpringService;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.*;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -26,6 +30,7 @@ import java.util.concurrent.Callable;
  * Created by Silence on 2018/4/3.
  */
 @Controller
+@Validated
 @RequestMapping("/first")
 public class HelloWorldController {
 
@@ -126,7 +131,7 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/download", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text;charset=utf-8")
     @ResponseBody
-    public String download(@RequestParam(value = "fileName") String fileName,
+    public String download(@NotEmpty @RequestParam(value = "fileName") String fileName,
                            HttpServletRequest request,
                            HttpServletResponse response) {
 
@@ -249,7 +254,7 @@ public class HelloWorldController {
 
     @RequestMapping("/findSprings")
     @ResponseBody
-    public Object findSprings() {
+    public Object findSprings(@Valid SpringParams springParams) {
 
         logger.info("=======>");
         List<Spring> springs = springService.findSprings();

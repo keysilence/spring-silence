@@ -129,4 +129,7 @@
         </property>
     </bean>
 
+    <!-- 声明后可以对方法进行单个参数校验 -->
+    <bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>
+
 </beans>
