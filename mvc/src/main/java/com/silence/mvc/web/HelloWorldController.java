@@ -267,6 +267,7 @@ public class HelloWorldController {
         logger.info("=======>findSprings in");
         if (result.hasErrors()) {
             List<FieldError> errors = result.getFieldErrors();
+            //如果一个字段同时匹配多个错误，则出现多条
             for (FieldError fieldError : errors) {
                 logger.info("=======>code:{}", fieldError.getCode());
                 logger.info("=======>message:{}", fieldError.getDefaultMessage());
