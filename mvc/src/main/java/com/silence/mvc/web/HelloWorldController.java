@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -252,11 +254,24 @@ public class HelloWorldController {
 //
 //    }
 
+    /**
+     * 使用BindingResult接收异常，否则Spring会直接抛出400异常
+     * @param springParams
+     * @param result
+     * @return
+     */
     @RequestMapping("/findSprings")
     @ResponseBody
-    public Object findSprings(@Valid SpringParams springParams) {
+    public Object findSprings(@Valid SpringParams springParams, BindingResult result) {
 
-        logger.info("=======>");
+        logger.info("=======>findSprings in");
+        if (result.hasErrors()) {
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError fieldError : errors) {
+                logger.info("=======>code:{}", fieldError.getCode());
+                logger.info("=======>message:{}", fieldError.getDefaultMessage());
+            }
+        }
         List<Spring> springs = springService.findSprings();
         return springs;
 
