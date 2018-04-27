@@ -11,4 +11,6 @@ public interface SpringService {
 
     public List<Spring> findSprings();
 
+    public void transactionTest();
+
 }

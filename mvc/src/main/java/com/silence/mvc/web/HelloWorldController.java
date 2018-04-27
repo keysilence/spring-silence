@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 /**
@@ -275,6 +276,16 @@ public class HelloWorldController {
         }
         List<Spring> springs = springService.findSprings();
         return springs;
+
+    }
+
+    @RequestMapping("/transactionTest")
+    @ResponseBody
+    public Object transactionTest() {
+
+        springService.transactionTest();
+
+        return "";
 
     }
 
