@@ -14,7 +14,7 @@ public class Sender {
     @Autowired
     private AmqpTemplate rabbitMqTemplate;
 
-    @Value("${mq.config.exchange}")
+    @Value("${mq.config.exchange.topic}")
     private String exchange;
 
     @Value("${mq.config.queue.debug.routing.key}")
@@ -31,7 +31,7 @@ public class Sender {
 
     public void send() {
 
-        String msg = "hello log ";
+        String msg = "hello topic log ";
         this.rabbitMqTemplate.convertAndSend(exchange, routingKeyDebug, msg + "debug");
         this.rabbitMqTemplate.convertAndSend(exchange, routingKeyInfo, msg + "info");
         this.rabbitMqTemplate.convertAndSend(exchange, routingKeyWarn, msg + "warn");

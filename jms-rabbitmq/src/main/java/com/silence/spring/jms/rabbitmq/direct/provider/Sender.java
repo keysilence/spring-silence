@@ -14,7 +14,7 @@ public class Sender {
     @Autowired
     private AmqpTemplate rabbitMqTemplate;
 
-    @Value("${mq.config.exchange}")
+    @Value("${mq.config.exchange.direct}")
     private String exchange;
 
     @Value("${mq.config.queue.info.routing.key}")
@@ -25,14 +25,14 @@ public class Sender {
 
     public void sendInfo() {
 
-        String msg = "hello info";
+        String msg = "hello direct info";
         this.rabbitMqTemplate.convertAndSend(exchange, routingKeyInfo, msg);
 
     }
 
     public void sendError() {
 
-        String msg = "hello error";
+        String msg = "hello direct error";
         this.rabbitMqTemplate.convertAndSend(exchange, routingKeyError, msg);
 
     }

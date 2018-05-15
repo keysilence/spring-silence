@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RabbitListener(bindings = @QueueBinding(value = @Queue(value = "${mq.config.queue.debug}", autoDelete = "true"),
-                exchange = @Exchange(value = "${mq.config.exchange}", type = ExchangeTypes.TOPIC),
+                exchange = @Exchange(value = "${mq.config.exchange.topic}", type = ExchangeTypes.TOPIC),
                 key = "*.debug.#"))
 public class DebugReceiver {
 

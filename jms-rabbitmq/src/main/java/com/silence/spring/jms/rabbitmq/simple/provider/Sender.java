@@ -15,7 +15,7 @@ public class Sender {
 
     public void send() {
 
-        String msg = "hello";
+        String msg = "hello simple ";
         this.rabbitMqTemplate.convertAndSend("hello-queue", msg);
 
     }

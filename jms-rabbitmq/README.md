@@ -23,7 +23,7 @@
 三种常用的交换器类型：
 
   - direct，发布订阅
-  - fanout，广播
+  - fanout，广播，可以没有routing-key和queue
   - topic，主题（规则匹配）
 
 ## Binding
