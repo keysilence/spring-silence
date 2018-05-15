@@ -21,7 +21,7 @@ public class Sender {
 
         String msg = "hello fanout log ";
         //广播消息不需要路由键
-        this.rabbitMqTemplate.convertAndSend(exchange, "", msg + "info");
+        this.rabbitMqTemplate.convertAndSend(exchange, "", msg);
 //        this.rabbitMqTemplate.convertAndSend(exchange, "", msg + "error");
 
     }
