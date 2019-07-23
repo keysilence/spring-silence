@@ -18,6 +18,7 @@
       <module>demo</module>
       <module>boot</module>
       <module>jms-rabbitmq</module>
+      <module>jms-kafka</module>
   </modules>
   <packaging>pom</packaging>
 
