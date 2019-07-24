@@ -1,33 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.silence</groupId>
-  <artifactId>spring-silence</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <modules>
-      <module>mvc</module>
-      <module>dao</module>
-      <module>domain</module>
-      <module>service</module>
-      <module>service-api</module>
-      <module>redis</module>
-      <module>mongo</module>
-      <module>ioc</module>
-      <module>aspect</module>
-      <module>demo</module>
-      <module>boot</module>
-      <module>jms-rabbitmq</module>
-      <module>jms-kafka</module>
-  </modules>
-  <packaging>pom</packaging>
+    <groupId>com.silence</groupId>
+    <artifactId>spring-silence</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mvc</module>
+        <module>dao</module>
+        <module>domain</module>
+        <module>service</module>
+        <module>service-api</module>
+        <module>redis</module>
+        <module>mongo</module>
+        <module>ioc</module>
+        <module>aspect</module>
+        <module>demo</module>
+        <module>boot</module>
+        <module>jms-rabbitmq</module>
+        <module>jms-kafka</module>
+    </modules>
+    <packaging>pom</packaging>
 
-  <name>spring-silence</name>
-  <url>http://maven.apache.org</url>
+    <name>spring-silence</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.version>4.3.8.RELEASE</spring.version>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.3.8.RELEASE</spring.version>
+    </properties>
+
+    <!--<dependencyManagement>-->
+        <!--<dependencies>-->
+            <!--<dependency>-->
+                <!--<groupId>org.apache.jena</groupId>-->
+                <!--<artifactId>apache-jena-libs</artifactId>-->
+                <!--<version>3.1.0</version>-->
+                <!--<type>pom</type>-->
+            <!--</dependency>-->
+        <!--</dependencies>-->
+    <!--</dependencyManagement>-->
 
 </project>

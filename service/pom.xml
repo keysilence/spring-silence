@@ -37,10 +37,34 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.python/jython -->
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython</artifactId>
+            <version>2.7.0</version>
+        </dependency>
         <!--<dependency>-->
-            <!--<groupId>net.sourceforge.jena</groupId>-->
-            <!--<artifactId>jena</artifactId>-->
-            <!--<version>2.3</version>-->
+            <!--<groupId>org.apache.jena</groupId>-->
+            <!--<artifactId>jena-tdb</artifactId>-->
+            <!--<version>3.1.0</version>-->
+            <!--&lt;!&ndash;<exclusions>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.slf4j</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>slf4j-api</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.apache.jena</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>jena-shaded-guava</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.apache.commons</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>commons-lang3</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+                <!--&lt;!&ndash;<exclusion>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<groupId>org.apache.commons</groupId>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<artifactId>commons-csv</artifactId>&ndash;&gt;-->
+                <!--&lt;!&ndash;</exclusion>&ndash;&gt;-->
+            <!--&lt;!&ndash;</exclusions>&ndash;&gt;-->
         <!--</dependency>-->
     </dependencies>
 
