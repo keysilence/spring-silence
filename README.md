@@ -22,3 +22,7 @@ docker exec -it {镜像ID} /bin/sh
 
 ### 预览
 http://localhost:8080/first/helloWorldVelocity
+
+
+## profile-config
+区分不同环境，读取不同配置

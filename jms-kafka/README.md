@@ -1,0 +1,32 @@
+# jms-kafka
+
+# 概念
+## Topic
+Topic就是一个消息队列，生产者可以向其写入消息，Topic支持多个生产者和消费者同事订阅它，所以其扩展性很好。Topic又可以由一个或者多个Partition（分区）组成。
+
+## Partition
+Partition中的消息是有序的，但相互之间的顺序顺序就不能保证了，若Topic有多个Partition，生产者的消息可以指定或者由系统根据算法分配到指定分区，若你需要的所有消息都是有序的，那么你最好只用一个分区。另外Partition支持消息位移读取，消息位移由消费者自身管理。
+
+## Payload
+Payload对于Kafka来说只是一个字节数组，并不关心数据的实际格式。
+每个Payload都有一个可选的Metadata，称作Key，Key通用只是一个字节数组。
+Payload被写入到Partition的时候，Key控制分派的过程，默认是使用Hash取模，如果不存在Key，则使用轮询Partition的策略。
+为了更家高效，Payload以批量提交的方式写入Kafka，这些批量的Payload都有相同的Topic和Partition，它是吞吐和延迟的权衡。
+可以通过设置最大字节数或者最大等待时间来控制客户端批量提交Payload。
+
+## Producer
+Producer创建Payload，一般不需要关注Payload被写入到哪个Partition中，如果需要自行控制，可以根据Key和自定义的Partition来完成。
+
+## Consumer
+Consumer订阅一个或者多个Topic，Consumer自己维护Payload的Offset，Partition内部的每一个Payload具有唯一的Offset。
+Consumer以Consumer Group来工作，一个Group内的Consumer一起协作消费一个Topic。
+Consumer Group保证Topic内的一个Partition只会被Group内的一个Consumer消费，所以Partition一定会被有序的消费。
+Group内的Consumer出现故障，消费组内的其他消费者会接管它的分区。
+
+## 其他
+不同消费者对同一分区的消息读取互不干扰，消费者可以通过设置消息位移（offset）来控制自己想要获取的数据，比如可以从头读取、最新数据读取、重读读取等功能。
+
+Kafka中的内部数据单元叫做Payload（消息），Payload以Topic来分类，使用的时候会使用命令行方式配置一个Topic，且指定Partition的个数；
+一个Partition对应于一个单独的日志，且是有序的，其内部表现为多个Segment文件，Payload不断地追加到最后一个Segment的末尾；
+每个Segment内的Payload都有Offset的概念，所以，Consumer可以随意的读取任意时刻的消息；
+Partition分布在多个Broker上，且会有多个副本，为了容灾，Partition相互之间不保证Payload的顺序；
