@@ -20,6 +20,7 @@
         <module>jms-rabbitmq</module>
         <module>jms-kafka</module>
         <module>profile-config</module>
+        <module>bean-creator</module>
     </modules>
     <packaging>pom</packaging>
 
